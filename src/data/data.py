@@ -14,7 +14,10 @@ class Data:
         Returns:
             list: Lista con los elementos en orden inverso
         """
-        pass
+        invertir = []
+        for i in range(len(lista) -1, -1, -1):
+            invertir.append(lista[i])
+        return invertir
     
     def buscar_elemento(self, lista, elemento):
         """
@@ -28,7 +31,10 @@ class Data:
         Returns:
             int: Índice del elemento o -1 si no se encuentra
         """
-        pass
+        for i in range(len(lista)):
+            if lista[i] == elemento:
+                return i 
+        return -1
     
     def eliminar_duplicados(self, lista):
         """
@@ -41,7 +47,11 @@ class Data:
         Returns:
             list: Lista sin elementos duplicados
         """
-        pass
+        resultado = []
+        for x in lista:
+            if x not in resultado:
+                resultado.append(x)
+        return resultado
     
     def merge_ordenado(self, lista1, lista2):
         """
@@ -54,7 +64,8 @@ class Data:
         Returns:
             list: Lista combinada y ordenada
         """
-        pass
+        combinado = sorted(lista1 + lista2)
+        return combinado
     
     def rotar_lista(self, lista, k):
         """
@@ -67,7 +78,13 @@ class Data:
         Returns:
             list: Lista rotada
         """
-        pass
+        n = len(lista)
+        if n == 0:
+            return []
+        k %= n 
+        if k == 0:
+            return lista[:]
+        return lista[-k:] + lista[:-k]
     
     def encuentra_numero_faltante(self, lista):
         """
@@ -79,7 +96,9 @@ class Data:
         Returns:
             int: El número que falta en la secuencia
         """
-        pass
+        n = len(lista) + 1
+        suma_esperada = n * (n + 1) // 2 
+        return suma_esperada - sum(lista)
     
     def es_subconjunto(self, conjunto1, conjunto2):
         """
@@ -92,7 +111,10 @@ class Data:
         Returns:
             bool: True si conjunto1 es subconjunto de conjunto2, False en caso contrario
         """
-        pass
+        for x in conjunto1:
+            if x not in conjunto2:
+                return False
+        return True
     
     def implementar_pila(self):
         """
@@ -101,7 +123,22 @@ class Data:
         Returns:
             dict: Diccionario con métodos push, pop, peek y is_empty
         """
-        pass
+        pila = []
+
+        def push(x):
+            pila.append(x)
+
+        def pop():
+            return pila.pop() if pila else None
+
+        def peek():
+            return pila[-1] if pila else None
+
+        def is_empty():
+            return len(pila) == 0
+        
+        return {"push": push, "pop": pop, "peek": peek, "is_empty": is_empty, }
+
     
     def implementar_cola(self):
         """
@@ -110,8 +147,21 @@ class Data:
         Returns:
             dict: Diccionario con métodos enqueue, dequeue, peek y is_empty
         """
-        pass
-    
+        cola = []
+        def enqueue(x):
+            cola.append(x)
+
+        def dequeue():
+            return cola.pop(0) if cola else None
+
+        def peek():
+            return cola[0] if cola else None
+
+        def is_empty():
+            return len(cola) == 0
+
+        return {"enqueue": enqueue, "dequeue": dequeue, "peek": peek, "is_empty": is_empty}
+        
     def matriz_transpuesta(self, matriz):
         """
         Calcula la transpuesta de una matriz.
@@ -122,4 +172,10 @@ class Data:
         Returns:
             list: Matriz transpuesta
         """
-        pass
+        if not matriz:
+            return[]
+        filas = len(matriz)
+        columnas = len(matriz[0])
+        return [[matriz[r][c] for r in range (filas)] for c in range (columnas)]\
+        
+        
