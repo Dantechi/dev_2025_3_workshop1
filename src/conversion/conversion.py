@@ -1,5 +1,6 @@
 class Conversion:
     def celsius_a_fahrenheit(self, celsius):
+        
         """
         Convierte temperatura de Celsius a Fahrenheit.
         
