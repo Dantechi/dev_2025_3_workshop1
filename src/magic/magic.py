@@ -37,7 +37,7 @@ class Magic:
         for _ in range (n):
             secuencia.append(a)
             a, b = b, a + b 
-            return secuencia
+        return secuencia
     
     def es_primo(self, n):
         """
@@ -49,9 +49,10 @@ class Magic:
         Returns:
             bool: True si n es primo, False en caso contrario
         """
-        for i in range(2, n):
+        if n <= 1:
+            return False
+        for i in range(2, int(n**0.5) + 1):
             if n % i == 0:
-                print("No es primo", i, "es divisor")
                 return False
         return True   
     
@@ -80,7 +81,7 @@ class Magic:
         suma = 0 
         for i in range (1,n):
             if n % i == 0:
-                suma += 1
+                suma += i
         return suma == n
 
     
