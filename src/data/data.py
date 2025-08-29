@@ -48,8 +48,11 @@ class Data:
             list: Lista sin elementos duplicados
         """
         resultado = []
+        vistos = []  # guardará (tipo, valor)
         for x in lista:
-            if x not in resultado:
+            clave = (type(x), x)
+            if clave not in vistos:
+                vistos.append(clave)
                 resultado.append(x)
         return resultado
     
