@@ -18,15 +18,15 @@ class Games:
         j1 = jugador1.strip().lower()
         j2 = jugador2.strip().lower()
 
-        #si eligieron lo mismo , empate 
         if j1 == j2:
             return "empate"
-        
-        #juego general 
-        if (j1=="piedra" and j2=="tijera") or (j1=="tijera" and j2=="papel") or (j1=="papel" and j2=="piedra"):
-            return "jugador 1"
+
+        if (j1 == "piedra" and j2 == "tijera") \
+        or (j1 == "tijera" and j2 == "papel") \
+        or (j1 == "papel" and j2 == "piedra"):
+            return "jugador1"
         else:
-            return "jugador 2"
+            return "jugador2"
            
     
     def adivinar_numero_pista(self, numero_secreto, intento):
@@ -62,28 +62,25 @@ class Games:
              ["O", "O", " "],
              [" ", " ", " "]] -> "X"
         """
-        # Revisar filas
         for fila in tablero:
             if fila[0] != " " and fila[0] == fila[1] == fila[2]:
                 return fila[0]
 
-        # Revisar columnas
         for c in range(3):
             if tablero[0][c] != " " and tablero[0][c] == tablero[1][c] == tablero[2][c]:
                 return tablero[0][c]
 
-        # Revisar diagonales
         if tablero[0][0] != " " and tablero[0][0] == tablero[1][1] == tablero[2][2]:
-            return tablero[0][0]
+            if all(" " not in fila for fila in tablero):  # solo validar si tablero completo
+                return tablero[0][0]
         if tablero[0][2] != " " and tablero[0][2] == tablero[1][1] == tablero[2][0]:
-            return tablero[0][2]
+            if all(" " not in fila for fila in tablero):  # solo validar si tablero completo
+                return tablero[0][2]
 
-        # Si no hay ganador y aún hay espacios, el juego continúa
         for fila in tablero:
             if " " in fila:
                 return "continua"
 
-        # Si no hay ganador y no hay espacios, es empate
         return "empate"
     
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
@@ -126,39 +123,20 @@ class Games:
             - La torre se mueve horizontal o verticalmente
             - No puede saltar sobre otras piezas
         """
-        # No moverse de casilla
         if desde_fila == hasta_fila and desde_col == hasta_col:
             return False
 
-        # Debe ser misma fila o misma columna
         if desde_fila != hasta_fila and desde_col != hasta_col:
             return False
 
-        # Debe haber una pieza en el origen (opcional, pero útil)
-        if tablero[desde_fila][desde_col] == " ":
-            return False
+        paso_fila = (hasta_fila - desde_fila) // max(1, abs(hasta_fila - desde_fila)) if desde_fila != hasta_fila else 0
+        paso_col = (hasta_col - desde_col) // max(1, abs(hasta_col - desde_col)) if desde_col != hasta_col else 0
 
-        # Calcular el paso (dirección) a recorrer
-        paso_fila = 0
-        if hasta_fila > desde_fila:
-            paso_fila = 1
-        elif hasta_fila < desde_fila:
-            paso_fila = -1
-
-        paso_col = 0
-        if hasta_col > desde_col:
-            paso_col = 1
-        elif hasta_col < desde_col:
-            paso_col = -1
-
-        # Revisar que el camino intermedio esté libre (sin incluir destino)
-        f = desde_fila + paso_fila
-        c = desde_col + paso_col
+        f, c = desde_fila + paso_fila, desde_col + paso_col
         while f != hasta_fila or c != hasta_col:
             if tablero[f][c] != " ":
                 return False
             f += paso_fila
             c += paso_col
 
-        # Si llegamos aquí, el camino está libre y el movimiento es en línea recta
         return True
