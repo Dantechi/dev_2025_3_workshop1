@@ -1,3 +1,6 @@
+import re
+
+
 class Strings:
     """
     Clase con métodos para manipulación y operaciones con cadenas de texto.
@@ -14,8 +17,9 @@ class Strings:
         Returns:
             bool: True si es palíndromo, False en caso contrario
         """
-        texto =texto.lower().replace(" "," ")
-        return texto == texto[::-1]
+        """Verifica si una cadena es un palíndromo."""
+        limpio = re.sub(r'[^a-zA-Z0-9]', '', texto).lower()
+        return limpio == limpio[::-1]
     
     def invertir_cadena(self, texto):
         """
@@ -97,8 +101,18 @@ class Strings:
         Returns:
             str: Cadena con la primera letra de cada palabra en mayúscula
         """
-        palabras = texto.split()
-        return " ".join(p.capitalize() for p in palabras)
+        """Pon en mayúscula la primera letra de cada palabra en una cadena."""
+        resultado = ""
+        en_palabra = False
+        for i, c in enumerate(texto):
+            if c.isalpha() and not en_palabra:
+                resultado += c.upper()
+                en_palabra = True
+            else:
+                resultado += c
+                if c.isspace():
+                    en_palabra = False
+        return resultado
     
     def eliminar_espacios_duplicados(self, texto):
         """
@@ -110,8 +124,8 @@ class Strings:
         Returns:
             str: Cadena sin espacios duplicados
         """
-        partes = texto.split()
-        return " ".join(partes)
+        """Elimina espacios duplicados en una cadena."""
+        return re.sub(r'\s+', ' ', texto)
     
     def es_numero_entero(self, texto):
         """
@@ -175,6 +189,9 @@ class Strings:
         Returns:
             list: Lista con las posiciones iniciales de cada ocurrencia
         """
+        """Encuentra todas las posiciones de una subcadena en un texto sin usar find() o index()."""
+        if not subcadena:
+            return []
         posiciones = []
         for i in range(len(texto) - len(subcadena) + 1):
             if texto[i:i+len(subcadena)] == subcadena:
