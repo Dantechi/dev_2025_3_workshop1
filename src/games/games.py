@@ -15,15 +15,23 @@ class Games:
             - Tijera vence a papel
             - Papel vence a piedra
         """
-        j1 = jugador1.strip().lower()
-        j2 = jugador2.strip().lower()
+        jugador1 = jugador1.lower()
+        jugador2 = jugador2.lower()
+        opciones = ["piedra", "papel", "tijera"]
 
-        if j1 == j2:
+        if jugador1 not in opciones or jugador2 not in opciones:
+            return "invalid"
+        
+        if jugador1 == jugador2:
             return "empate"
+        
+        reglas = {
+            "piedra": "tijera",   # piedra gana a tijera
+            "tijera": "papel",    # tijera gana a papel
+            "papel": "piedra"     # papel gana a piedra
+        }
 
-        if (j1 == "piedra" and j2 == "tijera") \
-        or (j1 == "tijera" and j2 == "papel") \
-        or (j1 == "papel" and j2 == "piedra"):
+        if reglas[jugador1] == jugador2:
             return "jugador1"
         else:
             return "jugador2"
@@ -123,20 +131,6 @@ class Games:
             - La torre se mueve horizontal o verticalmente
             - No puede saltar sobre otras piezas
         """
-        if desde_fila == hasta_fila and desde_col == hasta_col:
+        # Validar límites del tablero
+        if not (0 <= desde_fila < 8 and 0 <= desde_col < 8 and 0 <= hasta_fila < 8 and 0 <= hasta_col < 8):
             return False
-
-        if desde_fila != hasta_fila and desde_col != hasta_col:
-            return False
-
-        paso_fila = (hasta_fila - desde_fila) // max(1, abs(hasta_fila - desde_fila)) if desde_fila != hasta_fila else 0
-        paso_col = (hasta_col - desde_col) // max(1, abs(hasta_col - desde_col)) if desde_col != hasta_col else 0
-
-        f, c = desde_fila + paso_fila, desde_col + paso_col
-        while f != hasta_fila or c != hasta_col:
-            if tablero[f][c] != " ":
-                return False
-            f += paso_fila
-            c += paso_col
-
-        return True

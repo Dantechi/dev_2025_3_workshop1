@@ -31,15 +31,16 @@ class Stats:
             mediana([1, 2, 3, 4, 5]) -> 3.0
             mediana([1, 2, 3, 4]) -> 2.5
         """
+        """Calcula la mediana de una lista de números."""
         if not numeros:
             return 0
-        numeros = sorted(numeros) #ordenamos lista
-        n = len(numeros)
-        mitad = n / 2
-        if n % 2 == 0: #si es par 
-            return (numeros[mitad - 1] + numeros[mitad] / 2)
+        datos_ordenados = sorted(numeros)
+        n = len(datos_ordenados)
+        medio = n // 2
+        if n % 2 == 0:
+            return (datos_ordenados[medio - 1] + datos_ordenados[medio]) / 2
         else:
-            return numeros[mitad]
+            return float(datos_ordenados[medio])
         
     def moda(self, numeros):
         """

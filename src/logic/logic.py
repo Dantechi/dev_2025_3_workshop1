@@ -52,7 +52,8 @@ class Logica:
         Returns:
             bool: Resultado de a XOR b
         """
-        return not (a and not b) or (not a and b)
+        """Implementa la operación lógica XOR (OR exclusivo)."""
+        return a != b
     
     def NAND(self, a, b):
         """
