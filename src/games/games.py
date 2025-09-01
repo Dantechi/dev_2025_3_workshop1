@@ -134,3 +134,26 @@ class Games:
         # Validar límites del tablero
         if not (0 <= desde_fila < 8 and 0 <= desde_col < 8 and 0 <= hasta_fila < 8 and 0 <= hasta_col < 8):
             return False
+        
+        # No puede quedarse en la misma casilla
+        if desde_fila == hasta_fila and desde_col == hasta_col:
+            return False
+        
+        # Movimiento horizontal
+        if desde_fila == hasta_fila:
+            paso = 1 if hasta_col > desde_col else -1
+            for c in range(desde_col + paso, hasta_col, paso):
+                if tablero[desde_fila][c] != " ":
+                    return False
+            return True
+        
+        # Movimiento vertical
+        if desde_col == hasta_col:
+            paso = 1 if hasta_fila > desde_fila else -1
+            for f in range(desde_fila + paso, hasta_fila, paso):
+                if tablero[f][desde_col] != " ":
+                    return False
+            return True
+        
+        # Si no es ni horizontal ni vertical, es inválido
+        return False
